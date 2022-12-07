@@ -74,6 +74,12 @@ resource "helm_release" "argocd_application" {
     type = "auto"
   }
 
+  set {
+    name = "source.helm.valueFiles"
+    value = yamlencode(each.value.valueFiles)
+  }
+
+
   # Destination Config.
   set {
     name  = "destination.server"

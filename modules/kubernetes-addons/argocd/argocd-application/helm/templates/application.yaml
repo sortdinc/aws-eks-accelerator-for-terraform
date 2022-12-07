@@ -13,6 +13,10 @@ spec:
     path: {{ .Values.source.path }}
     helm:
       values: {{ toYaml .Values.source.helm.values | toString | indent 6 }}
+      {{- with .Values.source.helm.valueFiles }}
+      valueFiles:
+      {{ . | nindent 6 }}
+      {{- end }}
   destination:
     server: {{ .Values.destination.server }}
     namespace: {{ .Values.namespace }}
