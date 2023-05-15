@@ -15,6 +15,7 @@ locals {
     certManager               = var.enable_cert_manager ? module.cert_manager[0].argocd_gitops_config : null
     clusterAutoscaler         = var.enable_cluster_autoscaler ? module.cluster_autoscaler[0].argocd_gitops_config : null
     corednsAutoscaler         = var.enable_amazon_eks_coredns && var.enable_coredns_autoscaler && length(var.coredns_autoscaler_helm_config) > 0 ? module.coredns_autoscaler[0].argocd_gitops_config : null
+    datadogOperator           = var.enable_datadog_operator ? module.datadog_operator[0].argocd_gitops_config : null
     grafana                   = var.enable_grafana ? module.grafana[0].argocd_gitops_config : null
     ingressNginx              = var.enable_ingress_nginx ? module.ingress_nginx[0].argocd_gitops_config : null
     keda                      = var.enable_keda ? module.keda[0].argocd_gitops_config : null
@@ -32,6 +33,7 @@ locals {
     argoWorkflows             = var.enable_argo_workflows ? module.argo_workflows[0].argocd_gitops_config : null
     karpenter                 = var.enable_karpenter ? module.karpenter[0].argocd_gitops_config : null
     kubernetesDashboard       = var.enable_kubernetes_dashboard ? module.kubernetes_dashboard[0].argocd_gitops_config : null
+    kubePrometheusStack       = var.enable_kube_prometheus_stack ? module.kube_prometheus_stack[0].argocd_gitops_config : null
     awsCloudWatchMetrics      = var.enable_aws_cloudwatch_metrics ? module.aws_cloudwatch_metrics[0].argocd_gitops_config : null
     externalDns               = var.enable_external_dns ? module.external_dns[0].argocd_gitops_config : null
     externalSecrets           = var.enable_external_secrets ? module.external_secrets[0].argocd_gitops_config : null
@@ -49,6 +51,8 @@ locals {
     kyverno_policy_reporter   = var.enable_kyverno ? { enable = true } : null
     nvidiaDevicePlugin        = var.enable_nvidia_device_plugin ? module.nvidia_device_plugin[0].argocd_gitops_config : null
     consul                    = var.enable_consul ? module.consul[0].argocd_gitops_config : null
+    thanos                    = var.enable_thanos ? module.thanos[0].argocd_gitops_config : null
+    kubeStateMetrics          = var.enable_kube_state_metrics ? module.kube_state_metrics[0].argocd_gitops_config : null
   }
 
   addon_context = {
@@ -75,15 +79,19 @@ locals {
       ap-northeast-2 = "602401143452.dkr.ecr.ap-northeast-2.amazonaws.com",
       ap-northeast-3 = "602401143452.dkr.ecr.ap-northeast-3.amazonaws.com",
       ap-south-1     = "602401143452.dkr.ecr.ap-south-1.amazonaws.com",
+      ap-south-2     = "900889452093.dkr.ecr.ap-south-2.amazonaws.com",
       ap-southeast-1 = "602401143452.dkr.ecr.ap-southeast-1.amazonaws.com",
       ap-southeast-2 = "602401143452.dkr.ecr.ap-southeast-2.amazonaws.com",
       ap-southeast-3 = "296578399912.dkr.ecr.ap-southeast-3.amazonaws.com",
+      ap-southeast-4 = "491585149902.dkr.ecr.ap-southeast-4.amazonaws.com",
       ca-central-1   = "602401143452.dkr.ecr.ca-central-1.amazonaws.com",
       cn-north-1     = "918309763551.dkr.ecr.cn-north-1.amazonaws.com.cn",
       cn-northwest-1 = "961992271922.dkr.ecr.cn-northwest-1.amazonaws.com.cn",
       eu-central-1   = "602401143452.dkr.ecr.eu-central-1.amazonaws.com",
+      eu-central-2   = "900612956339.dkr.ecr.eu-central-2.amazonaws.com",
       eu-north-1     = "602401143452.dkr.ecr.eu-north-1.amazonaws.com",
       eu-south-1     = "590381155156.dkr.ecr.eu-south-1.amazonaws.com",
+      eu-south-2     = "455263428931.dkr.ecr.eu-south-2.amazonaws.com",
       eu-west-1      = "602401143452.dkr.ecr.eu-west-1.amazonaws.com",
       eu-west-2      = "602401143452.dkr.ecr.eu-west-2.amazonaws.com",
       eu-west-3      = "602401143452.dkr.ecr.eu-west-3.amazonaws.com",

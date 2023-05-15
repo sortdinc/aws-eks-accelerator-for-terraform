@@ -52,9 +52,9 @@ variable "cluster_name" {
 }
 
 variable "cluster_version" {
-  description = "Kubernetes `<major>.<minor>` version to use for the EKS cluster (i.e.: `1.23`)"
+  description = "Kubernetes `<major>.<minor>` version to use for the EKS cluster (i.e.: `1.24`)"
   type        = string
-  default     = "1.23"
+  default     = "1.24"
 }
 
 #-------------------------------
@@ -106,6 +106,12 @@ variable "cluster_security_group_tags" {
   description = "A map of additional tags to add to the cluster security group created"
   type        = map(string)
   default     = {}
+}
+
+variable "create_cluster_primary_security_group_tags" {
+  description = "Indicates whether or not to tag the cluster's primary security group. This security group is created by the EKS service, not the module, and therefore tagging is handled after cluster creation"
+  type        = bool
+  default     = true
 }
 
 #-------------------------------

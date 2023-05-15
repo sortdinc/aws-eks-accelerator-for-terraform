@@ -252,15 +252,15 @@ module "coredns_autoscaler" {
 }
 
 module "crossplane" {
-  count               = var.enable_crossplane ? 1 : 0
-  source              = "./crossplane"
-  helm_config         = var.crossplane_helm_config
-  aws_provider        = var.crossplane_aws_provider
-  jet_aws_provider    = var.crossplane_jet_aws_provider
-  kubernetes_provider = var.crossplane_kubernetes_provider
-  account_id          = data.aws_caller_identity.current.account_id
-  aws_partition       = data.aws_partition.current.id
-  addon_context       = local.addon_context
+  count                = var.enable_crossplane ? 1 : 0
+  source               = "./crossplane"
+  helm_config          = var.crossplane_helm_config
+  aws_provider         = var.crossplane_aws_provider
+  upbound_aws_provider = var.crossplane_upbound_aws_provider
+  jet_aws_provider     = var.crossplane_jet_aws_provider
+  kubernetes_provider  = var.crossplane_kubernetes_provider
+  helm_provider        = var.crossplane_helm_provider
+  addon_context        = local.addon_context
 }
 
 module "datadog_operator" {
@@ -317,12 +317,16 @@ module "karpenter" {
 
   count = var.enable_karpenter ? 1 : 0
 
-  helm_config               = var.karpenter_helm_config
-  irsa_policies             = var.karpenter_irsa_policies
-  node_iam_instance_profile = var.karpenter_node_iam_instance_profile
-  sqs_queue_arn             = var.karpenter_sqs_queue_arn
-  manage_via_gitops         = var.argocd_manage_add_ons
-  addon_context             = local.addon_context
+  helm_config                                 = var.karpenter_helm_config
+  irsa_policies                               = var.karpenter_irsa_policies
+  node_iam_instance_profile                   = var.karpenter_node_iam_instance_profile
+  enable_spot_termination                     = var.karpenter_enable_spot_termination_handling
+  rule_name_prefix                            = var.karpenter_event_rule_name_prefix
+  manage_via_gitops                           = var.argocd_manage_add_ons
+  addon_context                               = local.addon_context
+  sqs_queue_managed_sse_enabled               = var.sqs_queue_managed_sse_enabled
+  sqs_queue_kms_master_key_id                 = var.sqs_queue_kms_master_key_id
+  sqs_queue_kms_data_key_reuse_period_seconds = var.sqs_queue_kms_data_key_reuse_period_seconds
 }
 
 module "keda" {
@@ -350,9 +354,16 @@ module "metrics_server" {
   addon_context     = local.addon_context
 }
 
+module "kube_state_metrics" {
+  count             = var.enable_kube_state_metrics ? 1 : 0
+  source            = "./kube-state-metrics"
+  helm_config       = var.kube_state_metrics_helm_config
+  manage_via_gitops = var.argocd_manage_add_ons
+  addon_context     = local.addon_context
+}
+
 module "ondat" {
-  source  = "ondat/ondat-addon/eksblueprints"
-  version = "0.1.2"
+  source = "./ondat"
 
   count = var.enable_ondat ? 1 : 0
 
@@ -370,10 +381,11 @@ module "ondat" {
 }
 
 module "kube_prometheus_stack" {
-  count         = var.enable_kube_prometheus_stack ? 1 : 0
-  source        = "./kube-prometheus-stack"
-  helm_config   = var.kube_prometheus_stack_helm_config
-  addon_context = local.addon_context
+  count             = var.enable_kube_prometheus_stack ? 1 : 0
+  source            = "./kube-prometheus-stack"
+  helm_config       = var.kube_prometheus_stack_helm_config
+  manage_via_gitops = var.argocd_manage_add_ons
+  addon_context     = local.addon_context
 }
 
 module "portworx" {
@@ -430,7 +442,7 @@ module "strimzi_kafka_operator" {
 
 module "sysdig_agent" {
   source  = "sysdiglabs/sysdig-addon/eksblueprints"
-  version = "0.0.1"
+  version = "0.0.3"
 
   count         = var.enable_sysdig_agent ? 1 : 0
   helm_config   = var.sysdig_agent_helm_config
@@ -459,6 +471,15 @@ module "tetrate_istio" {
   gateway_helm_config  = var.tetrate_istio_gateway_helm_config
   manage_via_gitops    = var.argocd_manage_add_ons
   addon_context        = local.addon_context
+}
+
+module "thanos" {
+  count             = var.enable_thanos ? 1 : 0
+  source            = "./thanos"
+  helm_config       = var.thanos_helm_config
+  manage_via_gitops = var.argocd_manage_add_ons
+  addon_context     = local.addon_context
+  irsa_policies     = var.thanos_irsa_policies
 }
 
 module "traefik" {
@@ -511,6 +532,7 @@ module "secrets_store_csi_driver" {
   manage_via_gitops = var.argocd_manage_add_ons
   addon_context     = local.addon_context
 }
+
 module "aws_privateca_issuer" {
   count                   = var.enable_aws_privateca_issuer ? 1 : 0
   source                  = "./aws-privateca-issuer"
