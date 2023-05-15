@@ -9,7 +9,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.3.2">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-8.3.2">
     
     
       
@@ -253,37 +253,22 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../node-groups/" class="md-nav__link">
-        Node Groups
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
     
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_4">
           IAM
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="IAM" data-md-level="1">
-        <label class="md-nav__title" for="__nav_5">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           IAM
         </label>
@@ -335,18 +320,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_7">
+        <label class="md-nav__link" for="__nav_6">
           Modules
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Modules" data-md-level="1">
-        <label class="md-nav__title" for="__nav_7">
+        <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           Modules
         </label>
@@ -383,18 +368,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_8">
+        <label class="md-nav__link" for="__nav_7">
           Add-ons
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Add-ons" data-md-level="1">
-        <label class="md-nav__title" for="__nav_8">
+        <label class="md-nav__title" for="__nav_7">
           <span class="md-nav__icon md-icon"></span>
           Add-ons
         </label>
@@ -702,6 +687,20 @@
     <li class="md-nav__item">
       <a href="../../add-ons/crossplane/" class="md-nav__link">
         Crossplane
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../add-ons/crowdstrike-falcon/" class="md-nav__link">
+        CrowdStrike Falcon
       </a>
     </li>
   
@@ -1120,6 +1119,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../add-ons/thanos/" class="md-nav__link">
+        Thanos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../add-ons/traefik/" class="md-nav__link">
         Traefik
       </a>
@@ -1203,18 +1216,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
       
       
       
       
-        <label class="md-nav__link" for="__nav_9">
+        <label class="md-nav__link" for="__nav_8">
           Advanced
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Advanced" data-md-level="1">
-        <label class="md-nav__title" for="__nav_9">
+        <label class="md-nav__title" for="__nav_8">
           <span class="md-nav__icon md-icon"></span>
           Advanced
         </label>
@@ -1445,8 +1458,8 @@ Remote API access API via SSM agent. You can launch trouble shooting container v
 </ul>
 <h3 id="updates">Updates<a class="headerlink" href="#updates" title="Permanent link">&para;</a></h3>
 <p>Bottlerocket can be updated automatically via Kubernetes  Operator</p>
-<div class="highlight"><pre><span></span><code>    kubectl apply -f Bottlerocket_k8s.csv.yaml
-    kubectl get ClusterServiceVersion Bottlerocket_k8s <span class="p">|</span> jq.<span class="s1">&#39;status&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>Bottlerocket_k8s.csv.yaml
+<span class="w">    </span>kubectl<span class="w"> </span>get<span class="w"> </span>ClusterServiceVersion<span class="w"> </span>Bottlerocket_k8s<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq.<span class="s1">&#39;status&#39;</span>
 </code></pre></div>
 
               
