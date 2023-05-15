@@ -41,6 +41,7 @@ local_tf_state/
 .gitallowed
 site
 .env*
+.history
 
 # Checks
 .tfsec
